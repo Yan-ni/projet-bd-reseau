@@ -1,35 +1,41 @@
-#include <stdio.h>
-#include <stdlib.h>
-
-#include <sys/socket.h>
-#include <netinet/in.h> 
-
-#define PORT 100
+#include<stdio.h>
+#include<string.h>	//strlen
+#include<sys/socket.h>
+#include<arpa/inet.h>	//inet_addr
 #define HOST "127.0.0.1"
+#define PORT 65432
 
-typedef int SOCKET;
-typedef struct sockaddr_in SOCKADDR_IN;
-typedef struct sockaddr SOCKADDR;
-typedef struct in_addr IN_ADDR;
 
-void connectSocket(){
-    SOCKET sock = socket(AF_INET, SOCK_STREAM, 0);
-    if (socket == INVALID_SOCKET){
-        perror("socket invalide");
-        exit(0);
-    }
-    else {
-        sin.sin_addr.s_addr = inet_addr("127.0.0.1");
-        sin.sin_family = AF_INET;
-        sin.sin_port = htons(PORT);
-    }
-    if(connect(sock, (SOCKADDR*)&sin, sizeof(sin)) != SOCKET_ERROR)
-        printf("Connexion à %s sur le port %d\n",inet_ntoa(sin.sin_addr),htons(sin.sin_port));
-    else
-        printf("Connexion impossible\n");
-    }
+int main(int argc , char *argv[])
+{
+	int socket_desc;
+	struct sockaddr_in server;
+	
+	//Create socket
+	socket_desc = socket(AF_INET , SOCK_STREAM , 0);
+	if (socket_desc == -1) printf("Could not create socket");
 
-void main(){
-    connectSocket();
-    closesocket(socket);
+	server.sin_addr.s_addr = inet_addr(HOST);
+	server.sin_port = htons(PORT);
+	server.sin_family = AF_INET;
+
+	//Connect to remote server
+	if (connect(socket_desc , (struct sockaddr *)&server , sizeof(server)) < 0)
+	{
+		printf("connect error");
+		return 1;
+	}
+	
+	printf("Connected\n");
+
+    char *message;
+	message = "";
+	if( send(socket_desc , message , strlen(message) , 0) < 0)
+	{
+		printf("Send failed");
+		return 1;
+	}
+	printf("Data Send\n");
+	
+	return 0;
 }

@@ -43,7 +43,7 @@ CREATE TABLE carte_porte (
 	PRIMARY KEY(numero_carte, numero_porte)
 );
 
-CREATE TYPE TYPE_EMPLOI AS ENUM('agent de sécurité', 'agent d''entretien', 'administration', 'cuisine', 'serveur');
+CREATE TYPE TYPE_EMPLOI AS ENUM('agent de sécurité', 'agent d''entretien', 'administration', 'cuisiner', 'serveur');
 CREATE TYPE TYPE_CONTRAT AS ENUM('CDI', 'CDD');
 
 CREATE TABLE employe (

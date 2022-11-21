@@ -17,3 +17,27 @@ INSERT INTO carte VALUES
 	(6, 'cuisinier', FALSE, 6),
 	(7, 'cuisinier', FALSE, 7),
 	(8, 'cuisinier', FALSE, 8);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
