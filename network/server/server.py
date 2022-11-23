@@ -11,13 +11,14 @@ class server:
 
 			print(f'listenning on {HOST}:{PORT}')
 
-			conn, addr = sock.accept()
+			while True:
+				conn, addr = sock.accept()
 
-			with conn:
-				print(f"Connected by {addr}")
+				with conn:
+					print(f"Connected by {addr}")
 
-				while True:
-					data = conn.recv(1024)
-					if not data:
-						break
-					# conn.sendall(data)
+					while True:
+						data = conn.recv(1024)
+						if not data:
+							break
+						# conn.sendall(data)
