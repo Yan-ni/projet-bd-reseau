@@ -1,7 +1,7 @@
 #include "client.h"
 #include "helper.h"
 #define HOST "127.0.0.1"
-#define PORT 65440
+#define PORT 65432
 
 int main(int argc , char *argv[])
 {
