@@ -11,6 +11,7 @@ if (!$result) {
     exit;
 }
 ?>
+<h2>Information employés:</h2>
 <table>
     <tr>
         <th>Identifiant</th>
@@ -34,6 +35,12 @@ if (!$result) {
             echo "\t\t<td>$col_value</td>\n";
         }
         ?>
+        <td class="employee-update">
+            <form action='updEmploye.php?id="<?php echo $line[0]; ?>"' method="get">
+                <input type="hidden" name="id" value="<?php echo $line[0]; ?>">
+                <input type="submit" name="submit" value="Update">
+            </form>
+        </td>
         <td class="contact-delete">
             <form action='suppPersonne.php?name="<?php echo $line[0]; ?>"' method="post">
                 <input type="hidden" name="id" value="<?php echo $line[0]; ?>">

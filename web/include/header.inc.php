@@ -18,13 +18,16 @@
                         <a href="index.php">Accueil</a>
                     </li>
                     <li>
-                        <a href="client.php">Client</a>
+                        <a href="client.php">Clients</a>
                     </li>
                     <li>
-                        <a href="employe.php">Employé</a>
+                        <a href="employe.php">Employés</a>
                     </li>
                     <li>
-                        <a href="reserv.php">Réservation</a>
+                        <a href="reserv.php">Réservations</a>
+                    </li>
+                    <li>
+                        <a href="tache.php">Tâches</a>
                     </li>
                 </ul>
             </div>

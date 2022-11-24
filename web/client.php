@@ -11,6 +11,7 @@ if (!$result) {
     exit;
 }
 ?>
+<h2>Information clients:</h2>
 <table>
     <tr>
         <th>Identifiant</th>
@@ -56,6 +57,36 @@ if (!$result) {
         <input type="submit" name="submit" value="Ajouter un client">
     </form>
 </div>
+
+<?php
+$query = "SELECT id_client, nom, prenom, date_fidelite, points FROM personne INNER JOIN client ON client.id_client = personne.id_personne NATURAL JOIN fidelite";
+$result = pg_query($dbconn, $query);
+if ($result) {
+    ?>
+    <h2>Information fidélité:</h2>
+    <table>
+        <tr>
+            <th>Identifiant</th>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Date fidélité</th>
+            <th>Points fidélité</th>
+        </tr>
+        <?php
+        while ($line = pg_fetch_row($result, null)) {
+            echo "\t<tr>\n";
+            foreach ($line as $col_value) {
+                echo "\t\t<td>$col_value</td>\n";
+            }
+            
+            echo "\t</tr>\n";
+        }
+        echo "</table>\n";
+
+        pg_free_result($result);
+    }
+?>
+
 <?php
     include_once "./include/footer.inc.php";
 ?>
