@@ -1,5 +1,5 @@
 <?php
-    $titre="Hotel - Réservation";
+    $titre="Réservation";
     $description="Site de projet de base de donnée réseau";
     include_once "./include/header.inc.php";
 ?>
@@ -11,40 +11,46 @@ if (!$result) {
     exit;
 }
 ?>
-<table>
-    <tr>
-        <th>Identifiant</th>
-        <th>Nom</th>
-        <th>Prenom</th>
-        <th>Numéro de réservation</th>
-        <th>Numéro de chambre</th>
-        <th>Nombre de personne</th>
-        <th>Date début</th>
-        <th>Date fin</th>
-        <th>Prix</th>
-        <th>Payé</th>
-    </tr>
-    <?php
-    while ($line = pg_fetch_row($result, null)) {
-        echo "\t<tr>\n";
-        foreach ($line as $col_value) {
-            echo "\t\t<td>$col_value</td>\n";
-        }
-        /*?>
-        <td class="contact-delete">
-            <form action='suppPersonne.php?name="<?php echo $line[0]; ?>"' method="post">
-                <input type="hidden" name="id" value="<?php echo $line[0]; ?>">
-                <input type="submit" name="submit" value="Delete">
-            </form>
-        </td>
-        <?php*/
-        echo "\t</tr>\n";
-    }
-    echo "</table>\n";
-
-    pg_free_result($result);
-
-?>
+<div class="px-5">
+    <h2 class="mt-5 mb-3">Réservations</h2>
+    <table class="table table-hover">
+        <thead>
+            <th>Identifiant</th>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Numéro de réservation</th>
+            <th>Numéro de chambre</th>
+            <th>Nombre de personne</th>
+            <th>Date début</th>
+            <th>Date fin</th>
+            <th>Prix</th>
+            <th>Payé</th>
+        </thead>
+        <tbody>
+        <?php while ($line = pg_fetch_row($result, null)) { ?>
+            <tr>
+            <?php foreach ($line as $col_value) { 
+                if (strcmp($col_value, "t") == 0) { ?>
+                <td>
+                    <span>
+                        <img style="width: 35px; height: 100%;" src="./assets/images/success.png" alt="paid">
+                    </span>
+                </td>
+                <?php } else if (strcmp($col_value, "f") == 0) { ?>
+                <td>
+                    <span>
+                        <img style="width: 35px; height: 100%;" src="./assets/images/fail.png" alt="not paid">
+                    </span>
+                </td>
+                <?php } else { ?>
+                <td><?php echo $col_value ?></td>
+            <?php }} ?>
+            </tr>
+        <?php } ?>
+        </tbody>
+    </table>
+</div>
+<?php pg_free_result($result); ?>
 
 <?php
     include_once "./include/footer.inc.php";

@@ -6,7 +6,7 @@
 
 <?php
 
-$id = $_POST['id'];
+$id = $_GET['id'];
 if(str_starts_with($id, 'EM')) {
 
     /*** Suprression d'un employé ***/
