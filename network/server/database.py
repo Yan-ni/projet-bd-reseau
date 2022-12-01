@@ -26,23 +26,36 @@ class Database:
 
 	@save_history
 	def verifier(self, numero_carte: str, numero_porte:str) -> int:
+		CONSTS = {
+			"OPEN_DOOR": 0,
+			"BAD_CARD": 1,
+			"BAD_DOOR": 2,
+			"STOLEN_CARD": 3,
+			"BAD_COMBINATION_DOOR_CARD": 4
+		}
 		self.cur.execute('SELECT * FROM carte WHERE numero_carte = %s', (numero_carte,))
 		carte = self.cur.fetchone()
 
 		if carte is None:
-			return 1
+			return CONSTS["BAD_CARD"]
 
 		self.cur.execute('SELECT * FROM porte WHERE numero_porte = %s', (numero_porte,))
 		porte = self.cur.fetchone()
 		
 		if porte is None:
-			return 2
+			return CONSTS["BAD_DOOR"]
 
 		if carte.get('perdu'):
-			return 3
+			return CONSTS["STOLEN_CARD"]
 		
-		if carte.get('numero_porte') != porte.get('numero_porte'):
-			return 4
+		if carte.get('acces') == "securité":
+			return CONSTS["OPEN_DOOR"]
 
-		return 0
+		if carte.get('acces') == "nettoyage" and porte.get('type_porte') == "chambre":
+			return CONSTS["OPEN_DOOR"]
+
+		if carte.get('numero_porte') != porte.get('numero_porte'):
+			return CONSTS["BAD_COMBINATION_DOOR_CARD"]
+
+		return CONSTS["OPEN_DOOR"]
 
