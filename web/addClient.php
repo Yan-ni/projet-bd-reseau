@@ -7,44 +7,90 @@
 <div class="container">
     <h2 class="mt-5 mb-3">Ajouter un client</h2>
     <form class="row g-3" action="addClient.php" method="get">
+        <input type="hidden" class="form-control" name="id">
         <div class="col-md-6">
             <label for="nom" class="form-label">Nom</label>
-            <input type="text" class="form-control" id="nom">
+            <input type="text" class="form-control" name="nom">
         </div>
         <div class="col-md-6">
             <label for="prenom" class="form-label">Prenom</label>
-            <input type="text" class="form-control" id="prenom">
+            <input type="text" class="form-control" name="prenom">
         </div>
         <div class="col-md-4">
             <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email">
+            <input type="email" class="form-control" name="email">
         </div>
         <div class="col-md-4">
             <label for="tel" class="form-label">Telephone</label>
-            <input type="tel" class="form-control" id="tel">
+            <input type="tel" class="form-control" name="tel">
         </div>
         <div class="col-md-4">
             <label for="bday" class="form-label">Date de naissance</label>
-            <input type="date" class="form-control" id="bday" min="1900-01-01" max="2010-12-31">
+            <input type="date" class="form-control" name="bday" min="1900-01-01" max="2010-12-31">
         </div>
         <div class="col-md-8">
             <label for="adr" class="form-label">Address</label>
-            <input type="text" class="form-control" id="adr">
+            <input type="text" class="form-control" name="adr">
         </div>
         <div class="col-md-2">
             <label for="ville" class="form-label">Ville</label>
-            <input type="text" class="form-control" id="ville">
+            <input type="text" class="form-control" name="ville">
         </div>
         <div class="col-md-2">
             <label for="codepost" class="form-label">Code postal</label>
-            <input type="text" class="form-control" id="codepost">
+            <input type="text" class="form-control" name="codepost">
         </div>
         <div class="col-12">
-            <button type="submit" class="btn btn-primary">Ajouter</button>
+            <input type="submit" class="btn btn-primary" value="Ajouter">
         </div>
     </form>
 </div>
+
 <?php
+
+        $pers = 'CL';
+        if(str_starts_with($pers,'CL')){
+                $query = "SELECT id_personne FROM personne WHERE id_personne LIKE 'CL%' ORDER BY id_personne DESC LIMIT 1";
+        }
+        if(str_starts_with($pers,'EM')){
+                $query = "SELECT id_personne FROM personne WHERE id_personne LIKE 'EM%' ORDER BY id_personne DESC LIMIT 1";
+        }
+        $result = pg_query($dbconn, $query); 
+        if(!$result) {
+                echo "Une erreur s'est produite dans la table personne.\n";
+        }
+        $row = pg_fetch_row($result);
+        if(str_starts_with($pers,'EM')){
+                $id = intval(explode("M", $row[0])[1])+1;
+                if($id<9)
+                        $id = 'EM00000'.$id;
+                if($id>=10 && $id<=99)
+                        $id = 'EM0000'.$id;
+                if($id>=100 && $id<=999)
+                        $id = 'EM000'.$id;
+                if($id>=1000 && $id<=9999)
+                        $id = 'EM00'.$id;
+                if($id>=10000 && $id<=99999)
+                        $id = 'EM0'.$id;
+                if($id>=100000 && $id<=999999)
+                        $id = 'EM'.$id;
+        }
+        if(str_starts_with($pers,'CL')){
+                $id = intval(explode("L", $row[0])[1])+1;
+                if($id<9)
+                        $id = 'CL00000'.$id;
+                if($id>=10 && $id<=99)
+                        $id = 'CL0000'.$id;
+                if($id>=100 && $id<=999)
+                        $id = 'CL000'.$id;
+                if($id>=1000 && $id<=9999)
+                        $id = 'CL00'.$id;
+                if($id>=10000 && $id<=99999)
+                        $id = 'CL0'.$id;
+                if($id>=100000 && $id<=999999)
+                        $id = 'CL'.$id;
+        }
+
         $comp = 0;
         if(isset($_GET['nom'])){
                 if (ctype_alpha($_GET['nom']) /*&& is_string($_GET['nom'])*/){
@@ -103,8 +149,6 @@
                 }
         }
         if($comp == 8){
-                
-                $id = "CL000000";
                 $mdp = "BUr0n6uGmfjFxQ7xwkxANj8WKznQmGO2tJVwKxCfct22nvfLAwG0Tg4bNEQpymZ6";
                 $nom = $_GET['nom'];
                 $prenom =$_GET['prenom'];

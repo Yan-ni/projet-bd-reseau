@@ -7,10 +7,10 @@
 <?php
 
 $id = $_GET['id'];
-if(str_starts_with($id, 'EM')) {
+/*if(str_starts_with($id, 'EM')) {*/
 
     /*** Suprression d'un employé ***/
-    echo "<p>Suppression d'un employé</p>";
+   /* echo "<p>Suppression d'un employé</p>";
 
     $query = "DELETE FROM employe_tache WHERE id_emp= '$id'";
     $result = pg_query($dbconn, $query);
@@ -23,10 +23,10 @@ if(str_starts_with($id, 'EM')) {
 
     $query = "DELETE FROM employe WHERE id_emp= '$id'";
 }
-elseif(str_starts_with($id, 'CL')){
+elseif(str_starts_with($id, 'CL')){*/
 
     /*** Suprression d'un client ***/
-    echo "<p>Suppression d'un client</p>";
+    /*echo "<p>Suppression d'un client</p>";
 
     $query = "DELETE FROM fidelite WHERE id_client= '$id'";
     $result = pg_query($dbconn, $query);
@@ -73,7 +73,7 @@ if ($result) {
 
 }else{
     echo "<p>Echec de la supression dans la table employe/client.</p>\n";
-}
+}*/
 $query = "DELETE FROM personne WHERE id_personne= '$id'";
 $result = pg_query($dbconn, $query);
 if ($result) {

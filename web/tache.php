@@ -5,7 +5,7 @@
 ?>
 
 <?php
-$query = "SELECT * FROM tache";
+$query = "SELECT personne.nom, personne.prenom, tache.description, tache.date_heure_début, tache.date_heure_fin, tache.commentaire, tache.realise FROM tache NATURAL JOIN employe_tache INNER JOIN personne ON personne.id_personne = employe_tache.id_emp";
 $result = pg_query($dbconn, $query);
 if (!$result) {
     echo "Une erreur s'est produite.\n";
@@ -13,9 +13,15 @@ if (!$result) {
 } ?>
 <div class="px-5">
     <h2>Information tâches</h2>
+    <div class="tache-add">
+        <form action='addTache.php'>
+            <button class="btn btn-primary" type="submit" name="submit"><span class=" fw-bold">+</span> Ajouter une tache</button>
+        </form>
+    </div>
     <table class="table table-hover">
         <thead>
-            <th>Identifiant</th>
+            <th>Nom</th>
+            <th>Prenom</th>
             <th>Tache a réaliser</th>
             <th>Date et heure début</th>
             <th>Date et heure fin</th>

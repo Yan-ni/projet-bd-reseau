@@ -46,7 +46,7 @@ if (!$result) {
                     </a>
                 </td>
                 <td class="personne-delete text-center">
-                    <a href="suppPersonne.php?id="<?php echo $line[0]; ?>">
+                    <a href="suppPersonne.php?id=<?php echo $line[0]; ?>">
                         <img style="width: 35px; height: 100%;" src="./assets/images/delete.png" alt="delete row">
                     </a>
                 </td>
