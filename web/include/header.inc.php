@@ -1,3 +1,10 @@
+<?php session_start();
+    if(!isset($_SESSION["id_employe"]))
+    {
+        header("Location: /login.php");
+        exit();
+    }
+?>
 <!DOCTYPE html>
 <head>
     <title>Hotel - <?php echo $titre; ?></title>
