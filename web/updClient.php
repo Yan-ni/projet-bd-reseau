@@ -4,25 +4,24 @@
     include_once "./include/header.inc.php";
 ?>
 
-<h2>Modification d'un client</h2>
 <?php
     $comp = 0;
     if(isset($_GET['nom'])){
-        if (ctype_alpha($_GET['nom']) /*&& is_string($_GET['nom'])*/){
+        if (ctype_alpha($_GET['nom'])){
             $comp++;
         }else{
             echo "<p>Mauvais format pour le nom</p>";
         }
     }
     if(isset($_GET['prenom'])){
-        if(ctype_alpha($_GET['prenom']) /*&& is_string($_GET['prenom'])*/){
+        if(ctype_alpha($_GET['prenom'])){
             $comp++;
         }else{
             echo "<p>Mauvais format pour le prenom</p>";
         }
     }
     if(isset($_GET['email'])){
-        if(/*is_string($_GET['email']) && */str_contains($_GET['email'],'@')){
+        if(str_contains($_GET['email'],'@')){
             $comp++;
         }else{
             echo "<p>Mauvais format pour l'adrresse email</p>";
@@ -43,14 +42,14 @@
         }
     }
     if(isset($_GET['adr'])){
-        if(!empty($_GET['adr'])/* && is_string($_GET['adr'])*/){
+        if(!empty($_GET['adr'])){
             $comp++;
         }else{
             echo "<p>Mauvais format pour l'adresse</p>";
         }
     }
     if(isset($_GET['ville'])){
-        if(!empty($_GET['ville']) /*&& is_string($_GET['ville'])*/){
+        if(!empty($_GET['ville'])){
             $comp++;
         }else{
             echo "<p>Mauvais format pour la ville</p>";
@@ -99,7 +98,7 @@
 
     if(isset($_GET['id'])){
         $id = $_GET['id'];
-        /*if(str_starts_with($id, 'CL')) {*/
+       
             $query = "SELECT * FROM personne INNER JOIN client ON client.id_client = personne.id_personne WHERE id_personne='$id'";
             $result = pg_query($dbconn, $query); 
             if (!$result) {
@@ -121,20 +120,51 @@
             $nbcarte=$row[11];        
 
         ?>
-        <form action="updClient.php" method="get">
-            Nom: <input type="text" name="nom" value="<?php echo $nom;?>"><br>
-            Prenom: <input type="text" name="prenom" value="<?php echo $prenom;?>"><br>
-            E-mail: <input type="text" name="email" value="<?php echo $email;?>"><br>
-            Telephone: <input type="text" name="tel" value=<?php echo $tel;?>><br>
-            Date de naissance:<input type="date" id="start" name="bday" value="<?php echo $bday;?>" min="1900-01-01" max="2010-12-31"><br>
-            Adresse: <input type="text" name="adr" value="<?php echo $adr;?>"><br>
-            Ville: <input type="text" name="ville" value="<?php echo $ville;?>"><br>
-            Code postal: <input type="text" name="codepost" value="<?php echo $codepsot;?>"><br>
-            Nombre de carte: <input type="text" name="nbcarte" value="<?php echo $nbcarte;?>"><br>
-            <input type="hidden" name="id" value="<?php echo $id;?>"><br>
-
-            <input type="submit" value="Update">
-        </form>
+        <div class="container">
+            <h2 class="mt-5 mb-3">Modifier un client</h2>
+            <form class="row g-3" action="updClient.php" method="get">
+                <input type="hidden" class="form-control" name="id" value="<?php echo $id;?>">
+                <div class="col-md-5">
+                    <label for="nom" class="form-label">Nom</label>
+                    <input type="text" class="form-control" name="nom" value="<?php echo $nom;?>">
+                </div>
+                <div class="col-md-5">
+                    <label for="prenom" class="form-label">Prenom</label>
+                    <input type="text" class="form-control" name="prenom" value="<?php echo $prenom;?>">
+                </div>
+                <div class="col-md-2">
+                    <label for="nbcarte" class="form-label">Nombre de cartes</label>
+                    <input type="text" class="form-control" name="nbcarte" value="<?php echo $nbcarte;?>">
+                </div>
+                <div class="col-md-4">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" value="<?php echo $email;?>">
+                </div>
+                <div class="col-md-4">
+                    <label for="tel" class="form-label">Telephone</label>
+                    <input type="tel" class="form-control" name="tel" value="<?php echo $tel;?>">
+                </div>
+                <div class="col-md-4">
+                    <label for="bday" class="form-label">Date de naissance</label>
+                    <input type="date" class="form-control" name="bday" value="<?php echo $bday;?>" min="1900-01-01" max="2010-12-31">
+                </div>
+                <div class="col-md-8">
+                    <label for="adr" class="form-label">Address</label>
+                    <input type="text" class="form-control" name="adr" value="<?php echo $adr;?>">
+                </div>
+                <div class="col-md-2">
+                    <label for="ville" class="form-label">Ville</label>
+                    <input type="text" class="form-control" name="ville" value="<?php echo $ville;?>">
+                </div>
+                <div class="col-md-2">
+                    <label for="codepost" class="form-label">Code postal</label>
+                    <input type="text" class="form-control" name="codepost" value="<?php echo $codepsot;?>">
+                </div>
+                <div class="col-12">
+                    <input type="submit" class="btn btn-primary" value="Modifier">
+                </div>
+            </form>
+        </div>
 
 <?php
 
