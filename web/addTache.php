@@ -1,5 +1,5 @@
 <?php
-    $titre="Ajout de clients";
+    $titre="Ajout de tache";
     $description="Site de projet de base de donnée réseau";
     include_once "./include/header.inc.php";
 ?>
@@ -16,7 +16,6 @@
         <div>
             <select name="personne">
                     <?php while ($line = pg_fetch_row($result, null)) { ?>
-                    <tr>
                     <?php foreach ($line as $col_value) { ?>
                         <option value="<?php echo $col_value ?>"><?php echo $col_value ?></option>
                     <?php }
