@@ -13,6 +13,11 @@ if (!$result) {
 ?>
 <div class="px-5">
     <h2 class="mt-5 mb-3">Réservations</h2>
+    <div class="client-add">
+        <form action='addReserv.php'>
+            <button class="btn btn-primary" type="submit" name="submit"><span class=" fw-bold">+</span> Ajouter une réservation</button>
+        </form>
+    </div>
     <table class="table table-hover">
         <thead>
             <th>Identifiant</th>

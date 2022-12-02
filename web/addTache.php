@@ -4,7 +4,7 @@
     include_once "./include/header.inc.php";
 ?>
 <?php
-    $query = "SELECT id_personne FROM employe INNER JOIN personne ON personne.id_personne = employe.id_emp";
+    $query = "SELECT id_personne, nom, prenom FROM employe INNER JOIN personne ON personne.id_personne = employe.id_emp";
     $result = pg_query($dbconn, $query);
 
 
@@ -14,12 +14,12 @@
     <form action="addTache.php" method="get">
         <input type="hidden" class="form-control" name="id">
         <div>
-            <select name="personne">
+            <label for="personne" class="form-label">Employé</label>
+            <select class="form-select" name="personne">
                     <?php while ($line = pg_fetch_row($result, null)) { ?>
-                    <?php foreach ($line as $col_value) { ?>
-                        <option value="<?php echo $col_value ?>"><?php echo $col_value ?></option>
+                    
+                        <option value="<?php echo $line[0] ?>"><?php echo $line[1]." ".$line[2] ?></option>
                     <?php }
-                }
                 ?>
             </select>
         </div>    

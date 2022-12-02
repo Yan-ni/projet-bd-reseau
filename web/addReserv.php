@@ -17,7 +17,7 @@
         <input type="hidden" class="form-control" name="id">
         <div>
             <label for="personne" class="form-label">Client</label>
-            <select name="personne">
+            <select class="form-select" name="personne">
                     <?php while ($line = pg_fetch_row($pers, null)) { ?>
                         <option value="<?php echo $line[0] ?>"><?php echo $line[1]." ".$line[2]; ?></option>
                     <?php 
@@ -27,7 +27,7 @@
         </div>    
         <div>
             <label for="chambre" class="form-label">Chambre</label>
-            <select name="chambre">
+            <select class="form-select" name="chambre">
                     <?php while ($line = pg_fetch_row($cham, null)) { ?>
                         <option value="<?php echo $line[0] ?>"><?php echo "Numéro ".$line[0]; ?></option>
                     <?php 
@@ -103,7 +103,6 @@
                         echo "<p>Ajout d'une reservation réussit.</p>";
                 }
                 
-                echo "yes";
         }
 
 ?>
