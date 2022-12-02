@@ -17,7 +17,7 @@ if(isset($_POST["id_employe"]) && isset($_POST["mdp"]))
 		exit;
 	}
 
-	$result = pg_prepare($dbconn, "get_employe", "SELECT id_personne, mdp FROM personne WHERE id_personne = $1");
+	$result = pg_prepare($dbconn, "get_employe", "SELECT id_personne, mdp, nom, prenom FROM personne WHERE id_personne = $1");
 	$result = pg_execute($dbconn, "get_employe", array($id));
 	$result = pg_fetch_assoc($result);
 
@@ -27,10 +27,15 @@ if(isset($_POST["id_employe"]) && isset($_POST["mdp"]))
 		exit();
 	}
 
+	$nom = $result["nom"];
+	$prenom = $result["prenom"];
+
 	if(strcmp($result["mdp"], hash("sha256", $mdp)) == 0)
 	{
 		session_start();
 		$_SESSION["id_employe"] = $id;
+		$_SESSION["nom"] = $nom;
+		$_SESSION["prenom"] = $prenom;
 		header("Location: /index.php");
 		exit();
 	}
