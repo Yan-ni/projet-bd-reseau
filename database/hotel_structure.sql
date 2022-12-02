@@ -59,8 +59,7 @@ CREATE TABLE carte_porte (
 	numero_carte INTEGER REFERENCES carte(numero_carte),
 	numero_porte INTEGER REFERENCES porte(numero_porte),
 	date_ouverture DATE NOT NULL,
-	statut_ouverture INTEGER NOT NULL,
-	PRIMARY KEY(numero_carte, numero_porte)
+	statut_ouverture INTEGER NOT NULL
 );
 
 CREATE TABLE employe (
