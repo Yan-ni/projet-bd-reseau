@@ -5,7 +5,7 @@ int create_socket(char* host, int port)
 	int socket_desc = socket(AF_INET , SOCK_STREAM , 0);
 	if (socket_desc == -1)
 	{
-		printf("Could not create socket");
+		printf("could not create socket.\n");
 		exit(EXIT_FAILURE);
 	}
 
@@ -17,7 +17,8 @@ int create_socket(char* host, int port)
 
 	if (connect(socket_desc, (struct sockaddr *)&server, sizeof(server)) < 0)
 	{
-		printf("connect error");
+		printf("connection to the server failed.\n");
+		printf("make sure the server is up and listenning on port : %d\n", port);
 		exit(EXIT_FAILURE);
 	}
 

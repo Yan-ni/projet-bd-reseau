@@ -1,10 +1,11 @@
 #include "client.h"
 #include "helper.h"
-#define HOST "127.0.0.1"
-#define PORT 65432
 
 int main(int argc , char *argv[])
 {
+	char *HOST = argc > 1 ? argv[1] : "127.0.0.1";
+	int PORT = argc > 2 ? atoi(argv[2]) : 65432;
+
 	int socket = create_socket(HOST, PORT);
 	int num_porte = 0, num_carte = 0;
 

@@ -2,7 +2,13 @@
 from dotenv import load_dotenv
 from os import environ
 from database import Database
+from datetime import datetime
 import socket
+
+def log(message):
+	print(message)
+	with open('logs.txt', 'a') as logs:
+		logs.write(f'{datetime.now().strftime("%H:%M:%S")} : {message}\n')
 
 if __name__ == '__main__':
 	# load environement variables of the database
@@ -15,14 +21,14 @@ if __name__ == '__main__':
 	try:
 		db = Database(db_host, db_name, db_username, db_password)
 	except Exception as ex:
-		print('failed connecting to the database.')
-		print(f'error : {ex}')
+		log('failed connecting to the database.')
+		log(f'error : {ex}')
 		exit()
-	print('connected to database successfully.')
+	log('connected to database successfully.')
 
 	# load environement variables of the socket
 	sock_host = environ.get('SOCK_HOST')
-	sock_port = environ.get('SOCK_PORT')
+	sock_port = environ.get('SOCK_PORT') or 65432
 	sock_port = int(sock_port)
 
 	try:
@@ -30,15 +36,15 @@ if __name__ == '__main__':
 		sock.bind((sock_host, sock_port))
 		sock.listen()
 	except Exception as ex:
-		print('failed creating a socket stream.')
-		print(f'error : {ex}')
+		log('failed creating a socket stream.')
+		log(f'error : {ex}')
 		exit()
-	print('socket stream instantiated successfully.')
-	print('listenning...')
+	log('socket stream instantiated successfully.')
+	log('listenning...')
 
 	while True:
 		conn, addr = sock.accept()
-		print(f"Connected by {addr}")
+		log(f"Connected by {addr}")
 
 		try:
 			while data := conn.recv(1024):
@@ -48,6 +54,6 @@ if __name__ == '__main__':
 				verif = db.verifier(numero_carte, numero_porte)
 				conn.sendall(bytes(str(verif).encode(encoding='utf-8')))
 		except Exception as ex:
-			print(f'error : {ex}')
+			log(f'error : {ex}')
 			conn.close()
 			break
