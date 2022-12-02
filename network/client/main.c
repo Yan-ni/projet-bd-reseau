@@ -34,7 +34,8 @@ int main(int argc , char *argv[])
 			return 1;
 		}
 
-		printf("code recu : %c\n", server_response);
+		// printf("code recu : %c\n", server_response);
+		printf("------------------------------------------------------------------------------\n");
 
 		switch (server_response)
 		{
@@ -57,7 +58,11 @@ int main(int argc , char *argv[])
 		case '4':
 			printf("vous n'avez pas accès.\n");
 			break;
-		
+
+		case '5':
+			printf("la chambre est occupé.\n");
+			break;
+
 		default:
 			printf("une erreur est survenue. Veillez contacter l'administration.\n");
 			break;

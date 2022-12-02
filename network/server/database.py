@@ -31,7 +31,8 @@ class Database:
 			"BAD_CARD": 1,
 			"BAD_DOOR": 2,
 			"STOLEN_CARD": 3,
-			"BAD_COMBINATION_DOOR_CARD": 4
+			"BAD_COMBINATION_DOOR_CARD": 4,
+			"BUSY_DOOR": 5
 		}
 		self.cur.execute('SELECT * FROM carte WHERE numero_carte = %s', (numero_carte,))
 		carte = self.cur.fetchone()
@@ -44,6 +45,12 @@ class Database:
 		
 		if porte is None:
 			return CONSTS["BAD_DOOR"]
+
+		if carte.get('acces') == 'nettoyage' and porte.get('type_porte') == 'chambre':
+			if porte.get('occupe'):
+				return CONSTS["BUSY_DOOR"]
+
+			return CONSTS["OPEN_DOOR"]
 
 		if carte.get('perdu'):
 			return CONSTS["STOLEN_CARD"]
