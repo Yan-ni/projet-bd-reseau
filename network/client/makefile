@@ -1,4 +1,3 @@
-#author: Benjamin PAUMARD
 
 SRC_DIR = .
 BUILD_DIR = build
